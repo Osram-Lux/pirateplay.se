@@ -38,7 +38,7 @@ hls2 = { 'items': [init_req,
 							handlerchain = redirect_handler()),
 						TemplateRequest( re = r'Location: (?P<req_url>.*?)\n' ),
 						TemplateRequest(
-							re = r'"MimeType":"text/vtt;charset=utf-8",.*?"Uri":"(?P<subtitles>http?://[^"]+)'),
+							re = r'"MimeType":"text/vtt;charset=utf-8",.*?"Uri":"(?P<subtitles>https?://[^"]+)'),
 						TemplateRequest(
 							re = stream_re % ('http://', 'm3u8')),
 						TemplateRequest(
