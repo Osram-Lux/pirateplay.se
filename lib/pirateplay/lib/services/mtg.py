@@ -37,8 +37,20 @@ mtg_hls = { 'items': [TemplateRequest(
 													'quality': '%s kbps' % (str(int(v['bitrate'])/1000)),
 													'suffix-hint': 'mp4' })] }
 
+mtg_hls2 = { 'items': [TemplateRequest(
+						re = r'(hls\+?)?(http://)?(www\.)?tv[368]play\.se/.*/(?P<id>\d+).*',
+						encode_vars = lambda v: { 'req_url': 'http://playapi.play.mtgx.tv/v3/videos/stream/%(id)s' % v } ),
+					TemplateRequest(
+						re = r'"hls":"(?P<req_url>(?P<base>http:.+/)[^/]+.m3u8[^"]+)"',
+						encode_vars = lambda v: { 'req_url': v['req_url'].replace('\\', ''), 'base': v['base'].replace('\\', '') } ),
+					TemplateRequest(
+						re = r'BANDWIDTH=(?P<bitrate>\d+).*?RESOLUTION=(?P<resolution>\d+x\d+).*?\n(?P<final_url>[^\n]+)',
+						encode_vars = lambda v: { #'final_url': '%(base)s%(url)s' % v,
+													'quality': '%s kbps' % (str(int(v['bitrate'])/1000)),
+													'suffix-hint': 'mp4' })] }
+
 #Dummies: TV6-play and TV8-play is caught by tv3play and mtg_alt
 tv6play = { 'title': 'TV6-play', 'url': 'http://tv6play.se/', 'feed_url': 'http://www.tv6play.se/rss/mostviewed' }
 tv8play = { 'title': 'TV8-play', 'url': 'http://tv8play.se/', 'feed_url': 'http://www.tv8play.se/rss/recent' }
 
-services = [tv3play, tv6play, tv8play, mtg_alt, mtg_hls]
+services = [tv3play, tv6play, tv8play, mtg_alt, mtg_hls, mtg_hls2]
