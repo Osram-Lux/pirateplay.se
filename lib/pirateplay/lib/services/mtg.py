@@ -24,25 +24,26 @@ mtg_alt = { 'startvars': { 'suffix-hint': 'flv' },
 					TemplateRequest(
 						re = r'<Url><!\[CDATA\[(?P<final_url>[^\]]+)',
 						encode_vars = mtg_encode[1])] }
-						
-mtg_hls = { 'items': [TemplateRequest(
+
+hls_init_req = TemplateRequest(
 						re = r'(hls\+?)?(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
-						encode_vars = lambda v: { 'req_url': 'http://viastream.viasat.tv/MobileStream/%(id)s' % v } ),
+						encode_vars = lambda v: { 'req_url': 'http://playapi.play.mtgx.tv/v3/videos/stream/%(id)s' % v } )
+hls_main_m3u8_req = TemplateRequest(
+						re = r'"hls":"(?P<req_url>(?P<base>http:.+/).+\.m3u8[^"]*)"',
+						encode_vars = lambda v: { 'req_url': v['req_url'].replace('\\', ''), 'base': v['base'].replace('\\', '') } )
+
+mtg_hls = { 'title': 'MTG TV*-play HLS #1',
+			'items': [hls_init_req,
+					hls_main_m3u8_req,
 					TemplateRequest(
-						re = r'"(?P<req_url>(?P<base>.+/)[^/]+.m3u8)"',
-						encode_vars = lambda v: { 'req_url': v['req_url'].replace('\\', ''), 'base': v['base'].replace('\\', '') } ),
-					TemplateRequest(
-						re = r'BANDWIDTH=(?P<bitrate>\d+)\n(?P<url>[^\n]+)',
+						re = r'BANDWIDTH=(?P<bitrate>\d+)[^\n]*\n(?P<url>[^\n]+)',
 						encode_vars = lambda v: { 'final_url': '%(base)s%(url)s' % v,
 													'quality': '%s kbps' % (str(int(v['bitrate'])/1000)),
 													'suffix-hint': 'mp4' })] }
 
-mtg_hls2 = { 'items': [TemplateRequest(
-						re = r'(hls\+?)?(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
-						encode_vars = lambda v: { 'req_url': 'http://playapi.play.mtgx.tv/v3/videos/stream/%(id)s' % v } ),
-					TemplateRequest(
-						re = r'"hls":"(?P<req_url>(?P<base>http:.+/)[^/]+.m3u8[^"]+)"',
-						encode_vars = lambda v: { 'req_url': v['req_url'].replace('\\', ''), 'base': v['base'].replace('\\', '') } ),
+mtg_hls2 = { 'title': 'MTG TV*-play HLS #2',
+			'items': [hls_init_req,
+					hls_main_m3u8_req,
 					TemplateRequest(
 						re = r'BANDWIDTH=(?P<bitrate>\d+).*?RESOLUTION=(?P<resolution>\d+x\d+).*?\n(?P<final_url>[^\n]+)',
 						encode_vars = lambda v: { #'final_url': '%(base)s%(url)s' % v,
