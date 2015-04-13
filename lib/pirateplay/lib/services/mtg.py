@@ -6,7 +6,7 @@ mtg_encode = [lambda v: { 'req_url': 'http://viastream.viasat.tv/PlayProduct/%s'
 
 tv3play = { 'title': 'TV3-play', 'url': 'http://tv3play.se/', 'startvars': { 'suffix-hint': 'flv' },
 			'items': [TemplateRequest(
-						re = r'^(http://)?(www\.)?tv[368]play\.se/.*/(?P<id>\d+).*',
+						re = r'^(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
 						encode_vars = mtg_encode[0]),
 						
 					TemplateRequest(
@@ -15,7 +15,7 @@ tv3play = { 'title': 'TV3-play', 'url': 'http://tv3play.se/', 'startvars': { 'su
 							
 mtg_alt = { 'startvars': { 'suffix-hint': 'flv' },
 			'items': [TemplateRequest(
-						re = r'^(http://)?(www\.)?tv[368]play\.se/.*/(?P<id>\d+).*',
+						re = r'^(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
 						encode_vars = mtg_encode[0]),
 						
 					TemplateRequest(
@@ -26,7 +26,7 @@ mtg_alt = { 'startvars': { 'suffix-hint': 'flv' },
 						encode_vars = mtg_encode[1])] }
 						
 mtg_hls = { 'items': [TemplateRequest(
-						re = r'(hls\+?)?(http://)?(www\.)?tv[368]play\.se/.*/(?P<id>\d+).*',
+						re = r'(hls\+?)?(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
 						encode_vars = lambda v: { 'req_url': 'http://viastream.viasat.tv/MobileStream/%(id)s' % v } ),
 					TemplateRequest(
 						re = r'"(?P<req_url>(?P<base>.+/)[^/]+.m3u8)"',
@@ -38,7 +38,7 @@ mtg_hls = { 'items': [TemplateRequest(
 													'suffix-hint': 'mp4' })] }
 
 mtg_hls2 = { 'items': [TemplateRequest(
-						re = r'(hls\+?)?(http://)?(www\.)?tv[368]play\.se/.*/(?P<id>\d+).*',
+						re = r'(hls\+?)?(http://)?(www\.)?tv[3681]0?play\.se/.*/(?P<id>\d+).*',
 						encode_vars = lambda v: { 'req_url': 'http://playapi.play.mtgx.tv/v3/videos/stream/%(id)s' % v } ),
 					TemplateRequest(
 						re = r'"hls":"(?P<req_url>(?P<base>http:.+/)[^/]+.m3u8[^"]+)"',
