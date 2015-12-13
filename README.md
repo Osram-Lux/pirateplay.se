@@ -16,3 +16,7 @@ as a stand alone webserver in it self ([cherrypy.quickstart](http://docs.cherryp
 config.ini must be present in root - a copy of config.ini.example should work
 in most cases. If run under mod_wsgi: directory must be set via .htaccess - see
 .htaccess.example.
+
+### Instalation notices for specific distributions ###
+
+* [Ubuntu 15.10](./ubuntu_README.md)
