@@ -73,7 +73,7 @@ Successfully installed genshi
 Cleaning up...
 ```
 
-There are several version of python packages. This one is the right one us.
+There are several version of python packages. This one is the right one for pirateplayer.
 
 ```console
 $ pip install python-twitter
@@ -94,12 +94,16 @@ Successfully installed python-twitter requests requests-oauthlib oauthlib
 Cleaning up...
 ```
 
+## Configuring the server ##
+
 We also need to create the configuration file. Copy the ```config.ini.example``` in the git root directory.
 ```console
 $ cp config.examle config.ini
 ```
 
 This file can be used without modification to run your server locally.
+
+## Starting the server ##
 
 You can now start the server like this.
 ```console
