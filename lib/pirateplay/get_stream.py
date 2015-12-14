@@ -109,8 +109,6 @@ if __name__ == '__main__':
 				cmd = 'php AdobeHDS.php --delete --manifest "%s" --outfile "%s"' % (stream['final_url'], options['out_file'])
 			else:
 				cmd = 'wget -nc -O "%s" "%s"' % (options['out_file'], ['final_url'])
-
-                        print cmd
 			if options['print_cmds']:
 				print(cmd)
 			else:
